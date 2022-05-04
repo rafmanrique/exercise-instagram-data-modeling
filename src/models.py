@@ -16,8 +16,8 @@ class User(Base):
     last_name = Column(String(15), nullable=False)
     email = Column(String(50), nullable=False, unique = True)
     post = relationship("Post", backref = "user")
-    following = relationship('Following', backref = "user")
-    follower = relationship('Follower', backref = "user")
+    following = relationship('Following', backref = "user", uselist = True)
+    follower = relationship('Follower', backref = "user", uselist = True)
     
 
 class Post(Base):
@@ -26,9 +26,9 @@ class Post(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     caption = Column(String(250))
     image = Column(String(250)) #URL#
-    saved = relationship('Saved', backref = "post")
-    liked = relationship('Liked', backref = "post")
-    comment = relationship('Comment', backref = "post")
+    saved = relationship('Saved', backref = "post", uselist = True)
+    liked = relationship('Liked', backref = "post", uselist = True)
+    comment = relationship('Comment', backref = "post", uselist = True)
    
 
 class Following(Base):
